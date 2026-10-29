@@ -1,0 +1,419 @@
+
+:host {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #624650;
+    background-color: #fffafd;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  .topo {
+    background-color: #fffafd;
+    padding: 22px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #f4dce6;
+    box-shadow: 0 4px 20px #d9a5b51a;
+  }
+  
+  .marca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .marca h1 {
+    font-family: Georgia, serif;
+    font-size: 25px;
+    font-weight: normal;
+    color: #a34f70;
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+  
+  .marca p {
+    color: #a98591;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin: 7px 0 0;
+  }
+  
+  nav {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+  }
+  
+  nav a {
+    color: #795765;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.3s;
+  }
+  
+  nav a:hover {
+    color: #d16b96;
+  }
+  
+  button {
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  button:hover {
+    transform: translateY(-2px);
+  }
+  
+  .botao-contato,
+  .botao-principal {
+    background: linear-gradient(135deg, #d889a8, #bd6489);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 23px;
+    box-shadow: 0 5px 14px #c46d902b;
+  }
+  
+  .destaque {
+    background:
+      radial-gradient(ellipse at 5% 10%, #fce5ee 0, transparent 38%),
+      linear-gradient(135deg, #fff8fb, #f9eaf0 55%, #f5e3e9);
+    padding: 75px 8%;
+    display: grid;
+    grid-template-columns: 1fr 0.9fr;
+    align-items: center;
+    gap: 55px;
+    overflow: hidden;
+  }
+  
+  .etiqueta {
+    color: #b05e7e;
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: bold;
+  }
+  
+  .texto-destaque h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(43px, 5vw, 67px);
+    line-height: 1.15;
+    font-weight: normal;
+    color: #75485b;
+    margin: 23px 0;
+  }
+  
+  .texto-destaque h2 span {
+    color: #ca7395;
+    font-style: italic;
+  }
+  
+  .texto-destaque > p {
+    color: #907482;
+    line-height: 1.9;
+    max-width: 470px;
+    font-size: 14px;
+  }
+  
+  .botoes {
+    display: flex;
+    gap: 13px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+  
+  .botao-secundario {
+    padding: 13px 22px;
+    color: #b45e80;
+    border: 1px solid #d89ab3;
+    background-color: #fffafd;
+    border-radius: 30px;
+  }
+  
+  .botao-secundario:hover {
+    background-color: #fce8f0;
+  }
+  
+  .beneficios {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 35px;
+  }
+  
+  .beneficios div {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #947180;
+    font-size: 12px;
+  }
+  
+  .beneficios strong {
+    color: #cb7898;
+    font-size: 22px;
+  }
+  
+  .imagem-destaque {
+    position: relative;
+  }
+  
+  .imagem-destaque::before {
+    content: "";
+    position: absolute;
+    inset: -14px 18px 14px -14px;
+    border: 1px solid #dba5bb;
+    border-radius: 190px 190px 12px 12px;
+    pointer-events: none;
+  }
+  
+  .imagem-destaque img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 180px 180px 12px 12px;
+    box-shadow: 0 15px 35px #a9637d24;
+  }
+  
+  .secao {
+    padding: 80px 8%;
+  }
+  
+  .titulo-secao {
+    text-align: center;
+    margin-bottom: 42px;
+  }
+  
+  .titulo-secao > span,
+  .contato > span {
+    color: #bd6c8b;
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: bold;
+  }
+  
+  .titulo-secao h2,
+  .contato h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(29px, 4vw, 39px);
+    font-weight: normal;
+    color: #784d60;
+    margin: 14px 0;
+  }
+  
+  .titulo-secao p {
+    color: #a18794;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  
+  .grade {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+  
+  .cartao,
+  .cartao-produto {
+    padding: 30px 26px;
+    background: linear-gradient(145deg, #ffffff, #fff6fa);
+    border: 1px solid #f1dce5;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px #b96e8c0c;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .cartao:hover,
+  .cartao-produto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 13px 30px #b96e8c20;
+  }
+  
+  .cartao h3,
+  .cartao-produto h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22px;
+    font-weight: normal;
+    color: #a45d79;
+    line-height: 1.4;
+  }
+  
+  .cartao p,
+  .cartao-produto p {
+    color: #987f8b;
+    font-size: 13px;
+    line-height: 1.9;
+  }
+  
+  .cartao button {
+    border: none;
+    background: transparent;
+    color: #bd6689;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 8px 0;
+  }
+  
+  .cartao button:hover {
+    color: #8d4262;
+  }
+  
+  .produtos {
+    background:
+      radial-gradient(ellipse at 100% 0%, #f8dce8, transparent 40%),
+      #fff5f9;
+  }
+  
+  .produto-icone {
+    min-height: 135px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #fbe7ef, #f3d4e1);
+    border: 1px solid #f0d0dd;
+    border-radius: 12px;
+    color: #b56887;
+  }
+  
+  .contato {
+    text-align: center;
+    padding: 75px 22px;
+    background: linear-gradient(135deg, #f9e7ee, #f4d9e4, #fbeef3);
+    border-top: 1px solid #f0d5e0;
+    border-bottom: 1px solid #f0d5e0;
+  }
+  
+  .contato h2 {
+    margin-top: 17px;
+  }
+  
+  .contato > p {
+    color: #8e6e7e;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  
+  .contato button {
+    margin-top: 17px;
+    padding: 14px 26px;
+    background: linear-gradient(135deg, #d889a8, #bd6489);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px #c46d9030;
+  }
+  
+  .contato .mensagem {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #a34f70;
+  }
+  
+  footer {
+    background-color: #fffafd;
+    padding: 25px 15px;
+    text-align: center;
+    color: #a18794;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+  
+  @media (max-width: 850px) {
+    .topo {
+      justify-content: center;
+      text-align: center;
+    }
+  
+    nav {
+      justify-content: center;
+    }
+  
+    .destaque {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 55px 7%;
+    }
+  
+    .texto-destaque {
+      text-align: center;
+    }
+  
+    .texto-destaque > p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    .botoes,
+    .beneficios {
+      justify-content: center;
+    }
+  
+    .imagem-destaque {
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  
+    .imagem-destaque img {
+      height: 390px;
+    }
+  
+    .grade {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .topo {
+      padding: 23px 16px;
+    }
+  
+    .marca h1 {
+      font-size: 22px;
+    }
+  
+    nav {
+      gap: 15px;
+    }
+  
+    .destaque {
+      padding: 45px 22px;
+    }
+  
+    .texto-destaque h2 {
+      font-size: 41px;
+    }
+  
+    .botoes {
+      flex-direction: column;
+    }
+  
+    .imagem-destaque img {
+      height: 300px;
+    }
+  
+    .secao {
+      padding: 55px 22px;
+    }
+  
+    .cartao,
+    .cartao-produto {
+      padding: 25px 22px;
+    }
+  
+    .contato {
+      padding: 55px 20px;
+    }
+  }
+  

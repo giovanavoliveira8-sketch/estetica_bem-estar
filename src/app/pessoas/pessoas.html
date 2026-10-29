@@ -1,0 +1,35 @@
+
+<h2>Cadastro de Clientes</h2>
+
+<p>{{ mensagem }}</p>
+
+<form (ngSubmit)="cadastrarPessoa()">
+  <label>Nome:</label>
+  <input type="text" name="nome" [(ngModel)]="nome" required>
+
+  <label>CPF:</label>
+  <input
+    type="text"
+    name="cpf"
+    [(ngModel)]="cpf"
+    maxlength="11"
+    placeholder="Digite os 11 números do CPF"
+    required>
+
+  <label>Data de nascimento:</label>
+  <input type="date" name="dataNascimento" [(ngModel)]="dataNascimento" required>
+
+  <label>Sexo:</label>
+  <input type="text" name="sexo" [(ngModel)]="sexo" required>
+
+  <label>E-mail:</label>
+  <input type="email" name="email" [(ngModel)]="email" required>
+
+  <label>Telefone:</label>
+  <input type="number" name="telefone" [(ngModel)]="telefone" required>
+
+  <label>Status:</label>
+  <input type="text" name="ativoPessoa" [(ngModel)]="ativoPessoa" required>
+
+  <button type="submit">Cadastrar cliente</button>
+</form>

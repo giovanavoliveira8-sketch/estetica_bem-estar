@@ -1,0 +1,49 @@
+
+.secao {
+    padding: 60px 8%;
+    text-align: center;
+    background-color: #fff5f7;
+    min-height: 400px;
+  }
+  
+  .secao h2 {
+    color: #8f3d5b;
+    font-size: 34px;
+    margin-bottom: 10px;
+  }
+  
+  .secao > p {
+    color: #6b555d;
+    margin-bottom: 35px;
+  }
+  
+  .grade {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+  }
+  
+  .cartao {
+    background-color: white;
+    padding: 30px 20px;
+    border-radius: 18px;
+    width: 250px;
+    box-shadow: 0 5px 15px #e8c5d0;
+    transition: transform 0.3s;
+  }
+  
+  .cartao:hover {
+    transform: translateY(-5px);
+  }
+  
+  .cartao h3 {
+    color: #b65377;
+    margin-bottom: 15px;
+  }
+  
+  .cartao p {
+    color: #6b555d;
+    line-height: 1.6;
+  }
+  
