@@ -1,23 +1,38 @@
 
 <section class="secao">
-    <h2>Nossos serviços</h2>
-    <p>Encontre o cuidado ideal para você.</p>
-  
-    <div class="grade">
-      <div class="cartao">
-        <h3>Tratamentos faciais</h3>
-        <p>Cuidados dedicados à pele e à sua rotina de beleza.</p>
-      </div>
-  
-      <div class="cartao">
-        <h3>Cuidados corporais</h3>
-        <p>Momentos de cuidado para promover conforto e bem-estar.</p>
-      </div>
-  
-      <div class="cartao">
-        <h3>Atendimentos</h3>
-        <p>Organize seus cuidados e consulte nossos atendimentos.</p>
-      </div>
+  <h2>Nossos serviços</h2>
+  <p>Encontre o cuidado ideal para você.</p>
+
+  <div class="filtros">
+    <button
+      *ngFor="let categoria of categorias"
+      (click)="filtrarCategoria(categoria)"
+      [class.selecionado]="categoriaSelecionada === categoria">
+      {{ categoria }}
+    </button>
+  </div>
+
+  <p *ngIf="mensagem">{{ mensagem }}</p>
+
+  <div class="grade">
+    <div class="cartao" *ngFor="let servico of servicosFiltrados">
+      <h3>{{ servico.item1 }}</h3>
+
+      <p>{{ servico.descricaoItem }}</p>
+
+      <p>
+        <strong>Categoria:</strong>
+        {{ servico.idcategoriaNavigation?.categoria }}
+      </p>
+
+      <p>
+        <strong>Preço:</strong>
+        {{ servico.preco }}
+      </p>
     </div>
-  </section>
-  
+  </div>
+
+  <p *ngIf="servicos.length > 0 && servicosFiltrados.length === 0">
+    Nenhum serviço encontrado nessa categoria.
+  </p>
+</section>

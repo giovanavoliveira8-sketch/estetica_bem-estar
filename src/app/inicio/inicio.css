@@ -1,71 +1,70 @@
 
 .destaque {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    padding: 60px 8%;
-    background-color: #fff5f7;
-    min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 60px 8%;
+  background-color: #eaf2fb;
+  min-height: 400px;
+}
+
+.texto-destaque {
+  max-width: 500px;
+}
+
+.texto-destaque h2 {
+  color: #163b65;
+  font-size: 38px;
+  margin-bottom: 20px;
+}
+
+.texto-destaque p {
+  color: #52677d;
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+button {
+  background-color: #2466a3;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin: 5px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #174a78;
+}
+
+.imagem-destaque {
+  flex: 1;
+  max-width: 480px;
+}
+
+.imagem-destaque img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px #b8cce2;
+}
+
+@media (max-width: 768px) {
+  .destaque {
+    flex-direction: column;
+    padding: 35px 5%;
   }
-  
-  .texto-destaque {
-    max-width: 500px;
-  }
-  
+
   .texto-destaque h2 {
-    color: #8f3d5b;
-    font-size: 38px;
-    margin-bottom: 20px;
+    font-size: 30px;
   }
-  
-  .texto-destaque p {
-    color: #6b555d;
-    font-size: 17px;
-    line-height: 1.7;
-    margin-bottom: 25px;
-  }
-  
-  button {
-    background-color: #c76b8a;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    margin: 5px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  button:hover {
-    background-color: #a94f70;
-  }
-  
-  .imagem-destaque {
-    flex: 1;
-    max-width: 480px;
-  }
-  
+
   .imagem-destaque img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px #d9a6b5;
+    height: 260px;
   }
-  
-  @media (max-width: 768px) {
-    .destaque {
-      flex-direction: column;
-      padding: 35px 5%;
-    }
-  
-    .texto-destaque h2 {
-      font-size: 30px;
-    }
-  
-    .imagem-destaque img {
-      height: 260px;
-    }
-  }
-  
+}

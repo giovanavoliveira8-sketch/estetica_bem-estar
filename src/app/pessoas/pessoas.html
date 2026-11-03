@@ -1,8 +1,6 @@
 
 <h2>Cadastro de Clientes</h2>
 
-<p>{{ mensagem }}</p>
-
 <form (ngSubmit)="cadastrarPessoa()">
   <label>Nome:</label>
   <input type="text" name="nome" [(ngModel)]="nome" required>
@@ -20,16 +18,27 @@
   <input type="date" name="dataNascimento" [(ngModel)]="dataNascimento" required>
 
   <label>Sexo:</label>
-  <input type="text" name="sexo" [(ngModel)]="sexo" required>
+  <input type="text" name="sexo" [(ngModel)]="sexo" maxlength="1" required>
 
   <label>E-mail:</label>
   <input type="email" name="email" [(ngModel)]="email" required>
 
   <label>Telefone:</label>
-  <input type="number" name="telefone" [(ngModel)]="telefone" required>
+  <input
+    type="text"
+    name="telefone"
+    [(ngModel)]="telefone"
+    placeholder="Digite o telefone"
+    required>
 
   <label>Status:</label>
-  <input type="text" name="ativoPessoa" [(ngModel)]="ativoPessoa" required>
+  <select name="ativoPessoa" [(ngModel)]="ativoPessoa" required>
+    <option value="">Selecione o status</option>
+    <option value="S">Ativo</option>
+    <option value="N">Inativo</option>
+  </select>
 
   <button type="submit">Cadastrar cliente</button>
+
+  <p class="mensagem">{{ mensagem }}</p>
 </form>
