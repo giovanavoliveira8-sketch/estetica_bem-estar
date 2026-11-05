@@ -5,19 +5,25 @@
 
   <p>Encontre o cuidado ideal para você.</p>
 
-  <!-- BUSCAR SERVIÇO PELO ID -->
   <div class="busca">
+
+    <input
+      #nomeBusca
+      type="text"
+      placeholder="Pesquisar serviço pelo nome"
+      (input)="pesquisarNome(nomeBusca.value)">
 
     <input
       #idBusca
       type="number"
-      placeholder="Digite o ID do serviço">
+      placeholder="Pelo ID"
+      style="width: 90px;">
 
     <button (click)="buscarServico(idBusca.value)">
       Buscar
     </button>
 
-    <button (click)="limparBusca(); idBusca.value = ''">
+    <button (click)="limparBusca(); idBusca.value = ''; nomeBusca.value = ''">
       Limpar
     </button>
 
@@ -25,7 +31,6 @@
 
   <p *ngIf="mensagem">{{ mensagem }}</p>
 
-  <!-- SERVIÇO ENCONTRADO -->
   <div class="cartao" *ngIf="servicoEncontrado">
 
     <h3>{{ servicoEncontrado.item1 }}</h3>
@@ -44,21 +49,17 @@
 
   </div>
 
-  <!-- FILTROS POR CATEGORIA -->
   <div class="filtros">
 
     <button
       *ngFor="let categoria of categorias"
       (click)="filtrarCategoria(categoria)"
       [class.selecionado]="categoriaSelecionada === categoria">
-
       {{ categoria }}
-
     </button>
 
   </div>
 
-  <!-- LISTA DE SERVIÇOS -->
   <div class="grade">
 
     <div class="cartao" *ngFor="let servico of servicosFiltrados">
@@ -82,7 +83,7 @@
   </div>
 
   <p *ngIf="servicos.length > 0 && servicosFiltrados.length === 0">
-    Nenhum serviço encontrado nessa categoria.
+    Nenhum serviço encontrado.
   </p>
 
 </section>

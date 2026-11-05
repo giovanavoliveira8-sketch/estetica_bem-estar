@@ -37,17 +37,63 @@ export class Pessoas implements OnInit {
       },
       error: (erro) => {
         console.log('Erro ao buscar pessoas:', erro);
+        this.mensagem = 'Não foi possível carregar os clientes.';
       }
     });
   }
 
   cadastrarPessoa(): void {
+
+    if (this.nome.trim() === '') {
+      this.mensagem = 'Informe o nome do cliente.';
+      return;
+    }
+
+    if (!/^[0-9]{11}$/.test(this.cpf)) {
+      this.mensagem = 'O CPF deve possuir 11 números.';
+      return;
+    }
+
+    if (this.dataNascimento === '') {
+      this.mensagem = 'Informe a data de nascimento.';
+      return;
+    }
+
+    const dataInformada = new Date(this.dataNascimento + 'T00:00:00');
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    if (isNaN(dataInformada.getTime()) || dataInformada > hoje) {
+      this.mensagem = 'Informe uma data de nascimento válida.';
+      return;
+    }
+
+    if (this.sexo.trim() === '') {
+      this.mensagem = 'Informe o sexo.';
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
+      this.mensagem = 'Informe um e-mail válido.';
+      return;
+    }
+
+    if (!/^[0-9]{10,11}$/.test(this.telefone)) {
+      this.mensagem = 'O telefone deve possuir 10 ou 11 números, incluindo o DDD.';
+      return;
+    }
+
+    if (this.ativoPessoa === '') {
+      this.mensagem = 'Selecione o status do cliente.';
+      return;
+    }
+
     const pessoa = {
-      nome: this.nome,
+      nome: this.nome.trim(),
       cpf: Number(this.cpf),
       dataNascimento: this.dataNascimento,
       sexo: this.sexo,
-      email: this.email,
+      email: this.email.trim(),
       telefone: Number(this.telefone),
       ativoPessoa: this.ativoPessoa
     };
@@ -68,7 +114,7 @@ export class Pessoas implements OnInit {
       },
       error: (erro) => {
         console.log('Erro ao cadastrar cliente:', erro);
-        this.mensagem = 'Erro ao cadastrar cliente.';
+        this.mensagem = 'Erro ao cadastrar cliente. Verifique os dados informados.';
       }
     });
   }

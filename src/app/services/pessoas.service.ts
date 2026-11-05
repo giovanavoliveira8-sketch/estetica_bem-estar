@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PessoasService {
-    
-    private url = 'https://localhost:7218/api/Pessoa';
+
+  private url = 'https://localhost:7218/api/Pessoa';
 
   constructor(private http: HttpClient) { }
 

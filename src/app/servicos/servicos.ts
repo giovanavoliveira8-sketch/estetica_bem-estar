@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItensService } from '../services/itens';
@@ -15,6 +16,7 @@ export class Servicos implements OnInit {
   servicoEncontrado: any = null;
   categoriaSelecionada = 'Todas';
   mensagem = '';
+  nomePesquisa = '';
 
   private url = 'https://localhost:7218/api/Item';
 
@@ -70,6 +72,12 @@ export class Servicos implements OnInit {
   limparBusca(): void {
     this.servicoEncontrado = null;
     this.mensagem = '';
+    this.nomePesquisa = '';
+  }
+
+  pesquisarNome(nome: string): void {
+    this.nomePesquisa = nome;
+    this.servicoEncontrado = null;
   }
 
   filtrarCategoria(categoria: string): void {
@@ -77,13 +85,17 @@ export class Servicos implements OnInit {
   }
 
   get servicosFiltrados(): any[] {
-    if (this.categoriaSelecionada === 'Todas') {
-      return this.servicos;
-    }
+    return this.servicos.filter(item => {
 
-    return this.servicos.filter(item =>
-      item.idcategoriaNavigation?.categoria === this.categoriaSelecionada
-    );
+      const categoriaCorreta =
+        this.categoriaSelecionada === 'Todas' ||
+        item.idcategoriaNavigation?.categoria === this.categoriaSelecionada;
+
+      const nomeCorreto =
+        item.item1.toLowerCase().includes(this.nomePesquisa.toLowerCase());
+
+      return categoriaCorreta && nomeCorreto;
+    });
   }
 
   get categorias(): string[] {

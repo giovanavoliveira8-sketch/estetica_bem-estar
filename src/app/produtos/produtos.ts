@@ -18,6 +18,7 @@ export class Produtos implements OnInit {
   mensagemBusca = '';
   buscaRealizada = false;
   mostrarBusca = false;
+  nomePesquisa = '';
 
   private url = 'https://localhost:7218/api/ProdutoItem';
 
@@ -45,6 +46,13 @@ export class Produtos implements OnInit {
     this.categoriaSelecionada = categoria;
     this.mostrarBusca = true;
     this.limparBusca();
+    this.nomePesquisa = '';
+  }
+
+  pesquisarNome(nome: string): void {
+    this.nomePesquisa = nome;
+    this.produtoEncontrado = null;
+    this.buscaRealizada = false;
   }
 
   buscarProduto(id: string): void {
@@ -59,12 +67,9 @@ export class Produtos implements OnInit {
 
     this.http.get<any>(this.url + '/id?id=' + id).subscribe({
       next: (dados) => {
-        if (
-          dados &&
-          dados.iditemNavigation &&
-          dados.iditemNavigation.tipoItem === 'P' &&
-          dados.iditemNavigation.ativoProdutoServico === 'S'
-        ) {
+        console.log('Produto recebido da API:', dados);
+
+        if (dados && dados.iditemNavigation) {
           this.produtoEncontrado = dados;
         } else {
           this.mensagemBusca = 'Produto não encontrado.';
@@ -81,16 +86,21 @@ export class Produtos implements OnInit {
     this.produtoEncontrado = null;
     this.mensagemBusca = '';
     this.buscaRealizada = false;
+    this.nomePesquisa = '';
   }
 
   get produtosFiltrados(): any[] {
-    if (this.categoriaSelecionada === 'Todas') {
-      return this.produtos;
-    }
+    return this.produtos.filter(produto => {
 
-    return this.produtos.filter(produto =>
-      produto.iditemNavigation.idcategoriaNavigation.categoria === this.categoriaSelecionada
-    );
+      const categoriaCorreta =
+        this.categoriaSelecionada === 'Todas' ||
+        produto.iditemNavigation.idcategoriaNavigation.categoria === this.categoriaSelecionada;
+
+      const nomeCorreto =
+        produto.iditemNavigation.item1.toLowerCase().includes(this.nomePesquisa.toLowerCase());
+
+      return categoriaCorreta && nomeCorreto;
+    });
   }
 
   get categorias(): string[] {
