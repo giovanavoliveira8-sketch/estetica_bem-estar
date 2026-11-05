@@ -1,23 +1,59 @@
 
 <section class="secao">
-    <h2>Produtos para você</h2>
-    <p>Conheça nossa seleção de produtos de autocuidado.</p>
-  
-    <div class="grade">
-      <div class="cartao">
-        <h3>Cuidados com a pele</h3>
-        <p>Produtos para sua rotina diária.</p>
-      </div>
-  
-      <div class="cartao">
-        <h3>Hidratação</h3>
-        <p>Opções para complementar seu autocuidado.</p>
-      </div>
-  
-      <div class="cartao">
-        <h3>Bem-estar</h3>
-        <p>Itens para tornar sua rotina mais especial.</p>
-      </div>
+
+  <h2>Produtos para você</h2>
+  <p>Conheça nossa seleção de produtos de autocuidado.</p>
+
+  <!-- Categorias -->
+  <div class="filtros">
+    <button
+      *ngFor="let categoria of categorias"
+      (click)="filtrarCategoria(categoria)"
+      [class.selecionado]="categoriaSelecionada === categoria">
+      {{ categoria }}
+    </button>
+  </div>
+
+  <!-- Pesquisa aparece depois de clicar em uma categoria -->
+  <div class="busca" *ngIf="mostrarBusca">
+
+    <input
+      #idBusca
+      type="number"
+      placeholder="Pesquisar produto pelo ID">
+
+    <button (click)="buscarProduto(idBusca.value)">
+      Buscar
+    </button>
+
+    <button (click)="limparBusca(); idBusca.value = ''">
+      Limpar
+    </button>
+
+  </div>
+
+  <p *ngIf="mensagemBusca">{{ mensagemBusca }}</p>
+
+  <!-- Resultado da pesquisa -->
+  <div class="grade" *ngIf="buscaRealizada && produtoEncontrado">
+
+    <div class="cartao">
+      <h3>{{ produtoEncontrado.iditemNavigation.item1 }}</h3>
+      <p>{{ produtoEncontrado.iditemNavigation.descricaoItem }}</p>
+      <p>R$ {{ produtoEncontrado.precoVenda }}</p>
     </div>
-  </section>
-  
+
+  </div>
+
+  <!-- Produtos da categoria -->
+  <div class="grade" *ngIf="!buscaRealizada">
+
+    <div class="cartao" *ngFor="let produto of produtosFiltrados">
+      <h3>{{ produto.iditemNavigation.item1 }}</h3>
+      <p>{{ produto.iditemNavigation.descricaoItem }}</p>
+      <p>R$ {{ produto.precoVenda }}</p>
+    </div>
+
+  </div>
+
+</section>

@@ -1,7 +1,7 @@
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItensService } from '../services/itens';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   imports: [CommonModule],
@@ -12,12 +12,16 @@ import { ItensService } from '../services/itens';
 export class Servicos implements OnInit {
 
   servicos: any[] = [];
-
+  servicoEncontrado: any = null;
   categoriaSelecionada = 'Todas';
-
   mensagem = '';
 
-  constructor(private itensService: ItensService) { }
+  private url = 'https://localhost:7218/api/Item';
+
+  constructor(
+    private itensService: ItensService,
+    private http: HttpClient
+  ) { }
 
   ngOnInit(): void {
     this.listarServicos();
@@ -36,6 +40,36 @@ export class Servicos implements OnInit {
         this.mensagem = 'Não foi possível carregar os serviços.';
       }
     });
+  }
+
+  buscarServico(id: string): void {
+    this.servicoEncontrado = null;
+    this.mensagem = '';
+
+    if (id.trim() === '') {
+      this.mensagem = 'Informe o ID do serviço.';
+      return;
+    }
+
+    this.http.get<any>(this.url + '/' + id).subscribe({
+      next: (dados) => {
+        if (dados.tipoItem === 'S' &&
+            dados.ativoProdutoServico === 'S') {
+          this.servicoEncontrado = dados;
+        } else {
+          this.mensagem = 'Serviço não encontrado.';
+        }
+      },
+      error: (erro) => {
+        this.mensagem = 'Serviço não encontrado.';
+        console.log('Erro ao consultar serviço:', erro);
+      }
+    });
+  }
+
+  limparBusca(): void {
+    this.servicoEncontrado = null;
+    this.mensagem = '';
   }
 
   filtrarCategoria(categoria: string): void {
