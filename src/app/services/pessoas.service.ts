@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PessoasService {
 
-  private url = 'https://localhost:7218/api/Pessoa';
+  private url = 'https://localhost:7218/api/PessoaEndereco';
 
   constructor(private http: HttpClient) { }
 

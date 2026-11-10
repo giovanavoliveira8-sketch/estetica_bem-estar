@@ -1,0 +1,239 @@
+
+<section class="gerenciar-produtos">
+
+  <h2>Gerenciamento de Produtos</h2>
+  <p>Cadastre, consulte, edite e desative os produtos.</p>
+
+  <p class="mensagem" *ngIf="mensagem">{{ mensagem }}</p>
+
+  <div class="formulario">
+
+    <h3>{{ editando ? 'Editar Produto' : 'Cadastrar Produto' }}</h3>
+
+    <div class="campo">
+      <label>Nome do produto:</label>
+      <input
+        type="text"
+        [(ngModel)]="produtoForm.item"
+        placeholder="Digite o nome do produto">
+    </div>
+
+    <div class="campo">
+      <label>Descrição:</label>
+      <textarea
+        rows="1"
+        [(ngModel)]="produtoForm.descricaoItem"
+        (input)="ajustarAltura($event)"
+        placeholder="Digite a descrição do produto">
+      </textarea>
+    </div>
+
+    <div class="campo">
+      <label>Categoria:</label>
+      <select [(ngModel)]="produtoForm.idcategoria">
+        <option [ngValue]="0">Selecione uma categoria</option>
+
+        <option
+          *ngFor="let categoria of categorias"
+          [ngValue]="categoria.idcategoria">
+          {{ categoria.categoria }}
+        </option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label>Preço:</label>
+      <input
+        type="number"
+        [(ngModel)]="produtoForm.preco"
+        min="0"
+        step="0.01"
+        placeholder="Digite o preço">
+    </div>
+
+    <div class="campo">
+      <label>Preço de venda:</label>
+      <input
+        type="number"
+        [(ngModel)]="produtoForm.precoVenda"
+        min="0"
+        step="0.01"
+        placeholder="Digite o preço de venda">
+    </div>
+
+    <div class="campo">
+      <label>Código do preço:</label>
+      <input
+        type="number"
+        [(ngModel)]="produtoForm.codigoPreco"
+        min="1">
+    </div>
+
+    <div class="campo">
+      <label>Unidade:</label>
+      <input
+        type="text"
+        [(ngModel)]="produtoForm.unidade">
+    </div>
+
+    <div class="botoes">
+
+      <button
+        *ngIf="!editando"
+        (click)="cadastrarProduto()">
+        Cadastrar Produto
+      </button>
+
+      <button
+        *ngIf="editando"
+        (click)="editarProduto()">
+        Salvar Alterações
+      </button>
+
+      <button
+        type="button"
+        class="botao-secundario"
+        (click)="novoProduto()">
+        Limpar Formulário
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="consulta">
+
+    <h3>Consultar Produto por ID</h3>
+
+    <input
+      type="number"
+      [(ngModel)]="idBusca"
+      placeholder="Digite o ID do produto">
+
+    <button (click)="consultarProduto()">Consultar</button>
+
+    <button
+      class="botao-secundario"
+      (click)="limparConsulta()">
+      Limpar Consulta
+    </button>
+
+    <div class="detalhes" *ngIf="produtoSelecionado">
+
+      <h4>Produto encontrado</h4>
+
+      <p><strong>ID:</strong> {{ produtoSelecionado.iditem }}</p>
+      <p><strong>Código:</strong> {{ produtoSelecionado.idproduto }}</p>
+      <p><strong>Nome:</strong> {{ produtoSelecionado.iditemNavigation.item1 }}</p>
+      <p><strong>Descrição:</strong> {{ produtoSelecionado.iditemNavigation.descricaoItem }}</p>
+
+      <p>
+        <strong>Preço:</strong>
+        {{ produtoSelecionado.iditemNavigation.preco | currency:'BRL' }}
+      </p>
+
+      <p>
+        <strong>Preço de venda:</strong>
+        {{ produtoSelecionado.precoVenda | currency:'BRL' }}
+      </p>
+
+      <p>
+        <strong>Status:</strong>
+        {{ produtoSelecionado.iditemNavigation.ativoProdutoServico === 'S' ? 'Ativo' : 'Inativo' }}
+      </p>
+
+      <button
+        *ngIf="produtoSelecionado.iditemNavigation.ativoProdutoServico === 'S'"
+        (click)="selecionarEdicao(produtoSelecionado)">
+        Editar
+      </button>
+
+      <button
+        *ngIf="produtoSelecionado.iditemNavigation.ativoProdutoServico === 'S'"
+        (click)="desativarProduto(produtoSelecionado)">
+        Desativar
+      </button>
+
+      <button
+        *ngIf="produtoSelecionado.iditemNavigation.ativoProdutoServico === 'N'"
+        (click)="reativarProduto(produtoSelecionado)">
+        Reativar
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="lista-produtos">
+
+    <h3>Produtos Cadastrados</h3>
+
+    <p *ngIf="carregando">Carregando produtos...</p>
+
+    <table *ngIf="!carregando && produtos.length > 0">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Código</th>
+          <th>Produto</th>
+          <th>Categoria</th>
+          <th>Preço de venda</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let produto of produtos">
+
+          <td>{{ produto.iditem }}</td>
+          <td>{{ produto.idproduto }}</td>
+          <td>{{ produto.iditemNavigation.item1 }}</td>
+          <td>{{ produto.iditemNavigation.idcategoriaNavigation.categoria }}</td>
+          <td>{{ produto.precoVenda | currency:'BRL' }}</td>
+
+          <td>
+            {{ produto.iditemNavigation.ativoProdutoServico === 'S' ? 'Ativo' : 'Inativo' }}
+          </td>
+
+          <td>
+
+            <button (click)="consultarProdutoPelaLista(produto.iditem)">
+              Consultar
+            </button>
+
+            <button
+              *ngIf="produto.iditemNavigation.ativoProdutoServico === 'S'"
+              (click)="selecionarEdicao(produto)">
+              Editar
+            </button>
+
+            <button
+              *ngIf="produto.iditemNavigation.ativoProdutoServico === 'S'"
+              (click)="desativarProduto(produto)">
+              Desativar
+            </button>
+
+            <button
+              *ngIf="produto.iditemNavigation.ativoProdutoServico === 'N'"
+              (click)="reativarProduto(produto)">
+              Reativar
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+    <p *ngIf="!carregando && produtos.length === 0">
+      Nenhum produto cadastrado.
+    </p>
+
+  </div>
+
+</section>

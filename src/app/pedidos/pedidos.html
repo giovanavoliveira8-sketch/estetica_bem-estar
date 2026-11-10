@@ -1,0 +1,146 @@
+
+<section class="secao">
+
+    <h2>Pedidos realizados</h2>
+  
+    <p class="subtitulo">
+      Consulte suas compras e confira os detalhes de cada pedido.
+    </p>
+  
+    <p *ngIf="carregando">
+      Carregando pedidos...
+    </p>
+  
+    <p *ngIf="mensagem">
+      {{ mensagem }}
+    </p>
+  
+    <!-- LISTA DE PEDIDOS -->
+    <div *ngIf="!pedidoSelecionado && !carregando">
+  
+      <div class="vazio" *ngIf="pedidos.length === 0">
+        <h3>Nenhum pedido encontrado.</h3>
+      </div>
+  
+      <div class="tabela" *ngIf="pedidos.length > 0">
+  
+        <table>
+  
+          <thead>
+            <tr>
+              <th>Pedido</th>
+              <th>Cliente</th>
+              <th>Data</th>
+              <th>Status</th>
+              <th>Total</th>
+              <th>Detalhes</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+  
+            <tr *ngFor="let pedido of pedidos">
+  
+              <td>#{{ pedido.idpedido }}</td>
+  
+              <td>{{ pedido.nomeCliente }}</td>
+  
+              <td>{{ pedido.dataPedido | date:'dd/MM/yyyy HH:mm' }}</td>
+  
+              <td>{{ pedido.statusPedido }}</td>
+  
+              <td>{{ pedido.total | currency:'BRL' }}</td>
+  
+              <td>
+                <button (click)="verDetalhes(pedido.idpedido)">
+                  Ver detalhes
+                </button>
+              </td>
+  
+            </tr>
+  
+          </tbody>
+  
+        </table>
+  
+      </div>
+  
+    </div>
+  
+    <!-- DETALHES DO PEDIDO -->
+    <div class="detalhes" *ngIf="pedidoSelecionado">
+  
+      <h3>Pedido #{{ pedidoSelecionado.idpedido }}</h3>
+  
+      <p>
+        <strong>Cliente:</strong>
+        {{ pedidoSelecionado.nomeCliente }}
+      </p>
+  
+      <p>
+        <strong>Data:</strong>
+        {{ pedidoSelecionado.dataPedido | date:'dd/MM/yyyy HH:mm' }}
+      </p>
+  
+      <p>
+        <strong>Forma de pagamento:</strong>
+        {{ pedidoSelecionado.formaPagamento }}
+      </p>
+  
+      <p>
+        <strong>Status:</strong>
+        {{ pedidoSelecionado.statusPedido }}
+      </p>
+  
+      <h3>Itens do pedido</h3>
+  
+      <div class="item" *ngFor="let item of pedidoSelecionado.itens">
+  
+        <p><strong>{{ item.nomeItem }}</strong></p>
+  
+        <p>
+          Tipo:
+          {{ item.tipoItem === 'P' ? 'Produto' : 'Serviço' }}
+        </p>
+  
+        <p>Quantidade: {{ item.quantidade }}</p>
+  
+        <p>
+          Valor unitário:
+          {{ item.valorUnitario | currency:'BRL' }}
+        </p>
+  
+        <p>
+          Total:
+          {{ item.totalItem | currency:'BRL' }}
+        </p>
+  
+      </div>
+  
+      <div class="resumo">
+  
+        <p>
+          Subtotal:
+          {{ pedidoSelecionado.subtotal | currency:'BRL' }}
+        </p>
+  
+        <p>
+          Frete:
+          {{ pedidoSelecionado.frete | currency:'BRL' }}
+        </p>
+  
+        <h3>
+          Total:
+          {{ pedidoSelecionado.total | currency:'BRL' }}
+        </h3>
+  
+      </div>
+  
+      <button (click)="voltarLista()">
+        Voltar para pedidos
+      </button>
+  
+    </div>
+  
+  </section>
+  

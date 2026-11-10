@@ -165,3 +165,23 @@
     min-height: auto;
   }
 }
+
+/* Botão adicionar ao carrinho */
+.cartao button {
+  width: 100%;
+  padding: 13px 18px;
+  margin-top: 12px;
+  background: linear-gradient(135deg, #438ac5, #2466a3);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cartao button:hover {
+  background: linear-gradient(135deg, #294674, #163b65);
+  transform: translateY(-2px);
+}

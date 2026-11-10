@@ -1,0 +1,69 @@
+
+.painel {
+    min-height: 500px;
+    padding: 40px 8%;
+    background-color: #eaf2fb;
+  }
+  
+  .cabecalho {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .cabecalho h2 {
+    color: #163b65;
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+  
+  .cabecalho p {
+    color: #52677d;
+  }
+  
+  .cartoes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+  
+  .cartao {
+    background-color: white;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px #b8cce2;
+    text-align: center;
+  }
+  
+  .cartao h3 {
+    color: #163b65;
+    margin-bottom: 12px;
+  }
+  
+  .cartao p {
+    color: #52677d;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 800px) {
+    .cartoes {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .cartoes {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  a.cartao {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  a.cartao:hover {
+    transform: translateY(-5px);
+  }
+  

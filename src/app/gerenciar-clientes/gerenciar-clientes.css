@@ -1,0 +1,101 @@
+
+.secao {
+    min-height: 500px;
+    padding: 35px 8%;
+    background-color: #eaf2fb;
+  }
+  
+  .secao h2 {
+    color: #163b65;
+    text-align: center;
+    font-size: 32px;
+  }
+  
+  .subtitulo {
+    color: #52677d;
+    text-align: center;
+    margin-bottom: 35px;
+  }
+  
+  .consulta,
+  .lista-clientes,
+  .detalhes {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px #b8cce2;
+  }
+  
+  h3 {
+    color: #163b65;
+    margin-bottom: 20px;
+  }
+  
+  .campo-consulta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  input {
+    flex: 1;
+    min-width: 180px;
+    padding: 12px;
+    border: 1px solid #b8cce2;
+    border-radius: 8px;
+  }
+  
+  button {
+    background-color: #2466a3;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #163b65;
+  }
+  
+  .botao-limpar {
+    background-color: #52677d;
+  }
+  
+  .detalhes p {
+    color: #52677d;
+    margin: 12px 0;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th {
+    background-color: #2466a3;
+    color: white;
+    padding: 13px;
+  }
+  
+  td {
+    padding: 13px;
+    color: #52677d;
+    border-bottom: 1px solid #dce6f0;
+  }
+  
+  @media (max-width: 700px) {
+    .secao {
+      padding: 25px 5%;
+    }
+  
+    .lista-clientes {
+      overflow-x: auto;
+    }
+  
+    table {
+      min-width: 550px;
+    }
+  }
+  

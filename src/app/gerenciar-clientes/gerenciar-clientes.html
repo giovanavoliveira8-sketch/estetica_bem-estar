@@ -1,0 +1,83 @@
+
+<section class="secao">
+
+  <h2>Gerenciar clientes</h2>
+
+  <p class="subtitulo">
+    Consulte os clientes cadastrados no sistema.
+  </p>
+
+  <div class="consulta">
+
+    <h3>Consultar cliente por ID</h3>
+
+    <div class="campo-consulta">
+
+      <input
+        type="number"
+        placeholder="Digite o ID do cliente"
+        [(ngModel)]="idBusca">
+
+      <button (click)="consultarCliente()">
+        Consultar
+      </button>
+
+      <button class="botao-limpar" (click)="limparConsulta()">
+        Limpar
+      </button>
+
+    </div>
+
+  </div>
+
+  <p *ngIf="mensagem">{{ mensagem }}</p>
+
+  <div class="detalhes" *ngIf="clienteSelecionado">
+
+    <h3>Dados do cliente</h3>
+
+    <p><strong>ID:</strong> {{ clienteSelecionado.idPessoa }}</p>
+    <p><strong>Nome:</strong> {{ clienteSelecionado.nome }}</p>
+    <p><strong>CPF:</strong> {{ clienteSelecionado.cpf }}</p>
+    <p><strong>Data de nascimento:</strong> {{ clienteSelecionado.dataNascimento | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Sexo:</strong> {{ clienteSelecionado.sexo }}</p>
+    <p><strong>E-mail:</strong> {{ clienteSelecionado.email }}</p>
+    <p><strong>Telefone:</strong> {{ clienteSelecionado.telefone }}</p>
+
+  </div>
+
+  <div class="lista-clientes" *ngIf="!consultaRealizada">
+
+    <h3>Todos os clientes cadastrados</h3>
+
+    <p *ngIf="carregando">Carregando clientes...</p>
+
+    <table *ngIf="!carregando && clientes.length > 0">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>E-mail</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{ cliente.idPessoa }}</td>
+          <td>{{ cliente.nome }}</td>
+          <td>{{ cliente.cpf }}</td>
+          <td>{{ cliente.email }}</td>
+        </tr>
+      </tbody>
+
+    </table>
+
+    <p *ngIf="!carregando && clientes.length === 0 && !mensagem">
+      Nenhum cliente cadastrado.
+    </p>
+
+  </div>
+
+</section>

@@ -1,0 +1,217 @@
+
+.secao {
+  background-color: #eaf2fb;
+  min-height: 100vh;
+  padding: 45px 25px;
+  color: #163b65;
+}
+
+.secao h2 {
+  text-align: center;
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #526b89;
+  margin-bottom: 35px;
+}
+
+.conteudo {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 30px;
+  max-width: 1150px;
+  margin: auto;
+  align-items: start;
+}
+
+.itens {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cartao,
+.resumo,
+.vazio {
+  background-color: white;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(22, 59, 101, 0.12);
+}
+
+.cartao {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.tipo {
+  color: #4779b5;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.cartao h3 {
+  color: #2466a3;
+  margin: 10px 0;
+}
+
+.cartao p {
+  color: #526b89;
+  line-height: 1.6;
+}
+
+.preco {
+  display: block;
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+.acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.quantidade {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.quantidade button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background-color: #294674;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.quantidade span {
+  font-weight: bold;
+}
+
+.remover {
+  border: none;
+  background: none;
+  color: #b33b3b;
+  cursor: pointer;
+}
+
+.subtotal-item {
+  width: 100%;
+  text-align: right;
+  font-weight: bold;
+}
+
+.resumo h3 {
+  font-size: 22px;
+  margin-bottom: 25px;
+}
+
+.linha {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  color: #526b89;
+}
+
+.total {
+  border-top: 1px solid #dce5ef;
+  padding-top: 18px;
+  color: #163b65;
+  font-size: 18px;
+}
+
+.total strong {
+  color: #2466a3;
+}
+
+.pagamento {
+  margin-top: 25px;
+}
+
+.pagamento label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.pagamento select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #c5d5e8;
+  border-radius: 10px;
+  color: #163b65;
+  background-color: white;
+  font-size: 14px;
+}
+
+.vazio {
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.vazio h3 {
+  color: #2466a3;
+  margin-bottom: 12px;
+}
+
+.vazio p {
+  color: #526b89;
+}
+
+@media (max-width: 800px) {
+  .conteudo {
+    grid-template-columns: 1fr;
+  }
+
+  .resumo {
+    width: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .secao {
+    padding: 30px 15px;
+  }
+
+  .secao h2 {
+    font-size: 27px;
+  }
+
+  .cartao {
+    flex-direction: column;
+  }
+}
+
+
+.botao-finalizar {
+  width: 100%;
+  padding: 15px;
+  margin-top: 22px;
+  border: none;
+  border-radius: 10px;
+  background-color: #2466a3;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.botao-finalizar:hover {
+  background-color: #163b65;
+  transform: translateY(-2px);
+}
+

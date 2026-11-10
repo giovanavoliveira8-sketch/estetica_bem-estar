@@ -15,8 +15,10 @@
 
     <input
       #idBusca
-      type="number"
+      type="text"
+      inputmode="numeric"
       placeholder="Pelo ID"
+      maxlength="5"
       style="width: 90px;">
 
     <button (click)="buscarServico(idBusca.value)">
@@ -47,9 +49,13 @@
       {{ servicoEncontrado.preco }}
     </p>
 
+    <button (click)="adicionarAoCarrinho(servicoEncontrado)">
+      Adicionar ao carrinho
+    </button>
+
   </div>
 
-  <div class="filtros">
+  <div class="filtros" *ngIf="categorias.length > 1">
 
     <button
       *ngFor="let categoria of categorias"
@@ -77,6 +83,10 @@
         <strong>Preço:</strong>
         {{ servico.preco }}
       </p>
+
+      <button (click)="adicionarAoCarrinho(servico)">
+        Adicionar ao carrinho
+      </button>
 
     </div>
 

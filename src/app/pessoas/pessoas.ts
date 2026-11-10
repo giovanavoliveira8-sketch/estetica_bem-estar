@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PessoasService } from '../services/pessoas.service';
@@ -22,9 +22,20 @@ export class Pessoas implements OnInit {
   telefone = '';
   ativoPessoa = '';
 
+  cep = '';
+  logradouro = '';
+  numero = '';
+  complemento = '';
+  bairro = '';
+  cidade = '';
+  uf = '';
+
   mensagem = '';
 
-  constructor(private pessoasService: PessoasService) { }
+  constructor(
+    private pessoasService: PessoasService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.listarPessoas();
@@ -34,10 +45,12 @@ export class Pessoas implements OnInit {
     this.pessoasService.listarPessoas().subscribe({
       next: (dados) => {
         this.pessoas = dados;
+        this.cdr.detectChanges();
       },
       error: (erro) => {
         console.log('Erro ao buscar pessoas:', erro);
         this.mensagem = 'Não foi possível carregar os clientes.';
+        this.cdr.detectChanges();
       }
     });
   }
@@ -88,6 +101,36 @@ export class Pessoas implements OnInit {
       return;
     }
 
+    if (!/^[0-9]{8}$/.test(this.cep)) {
+      this.mensagem = 'O CEP deve possuir 8 números.';
+      return;
+    }
+
+    if (this.logradouro.trim() === '') {
+      this.mensagem = 'Informe o logradouro.';
+      return;
+    }
+
+    if (this.numero.trim() === '') {
+      this.mensagem = 'Informe o número do endereço.';
+      return;
+    }
+
+    if (this.bairro.trim() === '') {
+      this.mensagem = 'Informe o bairro.';
+      return;
+    }
+
+    if (this.cidade.trim() === '') {
+      this.mensagem = 'Informe a cidade.';
+      return;
+    }
+
+    if (!/^[A-Za-z]{2}$/.test(this.uf)) {
+      this.mensagem = 'Informe uma UF válida com duas letras.';
+      return;
+    }
+
     const pessoa = {
       nome: this.nome.trim(),
       cpf: Number(this.cpf),
@@ -95,7 +138,19 @@ export class Pessoas implements OnInit {
       sexo: this.sexo,
       email: this.email.trim(),
       telefone: Number(this.telefone),
-      ativoPessoa: this.ativoPessoa
+      ativoPessoa: this.ativoPessoa,
+
+      enderecos: [
+        {
+          cep: this.cep,
+          numero: this.numero.trim(),
+          complemento: this.complemento.trim(),
+          logradouro: this.logradouro.trim(),
+          bairro: this.bairro.trim(),
+          cidade: this.cidade.trim(),
+          uf: this.uf.toUpperCase()
+        }
+      ]
     };
 
     this.pessoasService.cadastrarPessoa(pessoa).subscribe({
@@ -110,11 +165,22 @@ export class Pessoas implements OnInit {
         this.telefone = '';
         this.ativoPessoa = '';
 
+        this.cep = '';
+        this.logradouro = '';
+        this.numero = '';
+        this.complemento = '';
+        this.bairro = '';
+        this.cidade = '';
+        this.uf = '';
+
+        this.cdr.detectChanges();
+
         this.listarPessoas();
       },
       error: (erro) => {
         console.log('Erro ao cadastrar cliente:', erro);
         this.mensagem = 'Erro ao cadastrar cliente. Verifique os dados informados.';
+        this.cdr.detectChanges();
       }
     });
   }

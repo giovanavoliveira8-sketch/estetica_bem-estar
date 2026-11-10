@@ -1,0 +1,128 @@
+
+<section class="secao">
+
+  <h2>Meu carrinho</h2>
+  <p class="subtitulo">Confira seus produtos e serviços antes de continuar.</p>
+
+  <div class="vazio" *ngIf="carrinho.itens.length === 0">
+    <h3>Seu carrinho está vazio!</h3>
+    <p>Adicione produtos ou serviços para continuar sua compra.</p>
+  </div>
+
+  <div class="conteudo" *ngIf="carrinho.itens.length > 0">
+
+    <div class="itens">
+
+      <div class="cartao" *ngFor="let item of carrinho.itens">
+
+        <div class="informacoes">
+          <span class="tipo">
+            {{ item.tipo === 'P' ? 'PRODUTO' : 'SERVIÇO' }}
+          </span>
+
+          <h3>{{ item.nome }}</h3>
+          <p>{{ item.descricao }}</p>
+
+          <strong class="preco">
+            {{ item.preco | currency:'BRL' }}
+          </strong>
+        </div>
+
+        <div class="acoes">
+
+          <div class="quantidade">
+            <button (click)="carrinho.diminuirQuantidade(item)">−</button>
+
+            <span>{{ item.quantidade }}</span>
+
+            <button (click)="carrinho.aumentarQuantidade(item)">+</button>
+          </div>
+
+          <button class="remover"
+            (click)="carrinho.removerItem(item)">
+            Remover
+          </button>
+
+        </div>
+
+        <p class="subtotal-item">
+          Total do item:
+          {{ (item.preco * item.quantidade) | currency:'BRL' }}
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="resumo">
+
+      <h3>Resumo da compra</h3>
+
+      <div class="linha">
+        <span>Subtotal</span>
+        <strong>{{ subtotal | currency:'BRL' }}</strong>
+      </div>
+
+      <div class="linha">
+        <span>Frete</span>
+        <strong>{{ frete | currency:'BRL' }}</strong>
+      </div>
+
+      <div class="linha total">
+        <span>Total a pagar</span>
+        <strong>{{ total | currency:'BRL' }}</strong>
+      </div>
+
+      <div class="pagamento">
+
+        <label for="cliente">Cliente</label>
+
+        <select
+          id="cliente"
+          #cliente
+          (change)="pessoaSelecionada = cliente.value">
+
+          <option value="">Selecione o cliente</option>
+
+          <option
+            *ngFor="let pessoa of pessoas"
+            [value]="pessoa.idPessoa">
+            {{ pessoa.nome }}
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="pagamento">
+
+        <label for="formaPagamento">Forma de pagamento</label>
+
+        <select
+          id="formaPagamento"
+          #pagamento
+          (change)="formaPagamento = pagamento.value">
+
+          <option value="">Selecione uma forma de pagamento</option>
+          <option value="Pix">Pix</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+
+        </select>
+
+      </div>
+
+      <p *ngIf="mensagem">{{ mensagem }}</p>
+
+      <button
+        class="botao-finalizar"
+        (click)="finalizarCompra()">
+        Finalizar compra
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
