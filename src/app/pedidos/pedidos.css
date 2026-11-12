@@ -4,56 +4,92 @@
     min-height: 400px;
     background-color: #eaf2fb;
     text-align: center;
-  }
-  
-  .secao h2 {
+}
+
+.secao h2 {
     color: #163b65;
     font-size: 34px;
     margin-bottom: 10px;
-  }
-  
-  .subtitulo {
+}
+
+.subtitulo {
     color: #52677d;
     margin-bottom: 35px;
-  }
-  
-  .vazio {
+}
+
+/* FILTRO DE PEDIDOS */
+.filtro {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 0 3px 10px #b8cce2;
+}
+
+.filtro label {
+    color: #163b65;
+    font-weight: bold;
+}
+
+.filtro select {
+    padding: 10px 15px;
+    min-width: 190px;
+    border: 1px solid #b8cce2;
+    border-radius: 10px;
+    background-color: #f5f9fe;
+    color: #163b65;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    transition: 0.3s;
+}
+
+.filtro select:focus {
+    border-color: #2466a3;
+    box-shadow: 0 0 0 3px #2466a326;
+}
+
+.vazio {
     background-color: white;
     padding: 35px;
     border-radius: 18px;
     color: #52677d;
-  }
-  
-  .tabela {
+}
+
+.tabela {
     background-color: white;
     padding: 20px;
     border-radius: 18px;
     box-shadow: 0 5px 15px #b8cce2;
     overflow-x: auto;
-  }
-  
-  table {
+}
+
+table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  th {
+}
+
+th {
     background-color: #2466a3;
     color: white;
     padding: 15px;
-  }
-  
-  td {
+}
+
+td {
     padding: 15px;
     color: #52677d;
     border-bottom: 1px solid #dce6f0;
-  }
-  
-  tr:hover {
+}
+
+tr:hover {
     background-color: #f1f6fc;
-  }
-  
-  button {
+}
+
+button {
     background-color: #2466a3;
     color: white;
     border: none;
@@ -61,55 +97,63 @@
     border-radius: 20px;
     cursor: pointer;
     transition: 0.3s;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #163b65;
     transform: translateY(-2px);
-  }
-  
-  .detalhes {
+}
+
+.detalhes {
     background-color: white;
     padding: 30px;
     border-radius: 18px;
     box-shadow: 0 5px 15px #b8cce2;
     text-align: left;
-  }
-  
-  .detalhes h3 {
+}
+
+.detalhes h3 {
     color: #163b65;
     margin-bottom: 20px;
-  }
-  
-  .detalhes p {
+}
+
+.detalhes p {
     color: #52677d;
     line-height: 1.6;
-  }
-  
-  .item {
+}
+
+.item {
     padding: 15px;
     margin-bottom: 15px;
     border: 1px solid #dce6f0;
     border-radius: 12px;
-  }
-  
-  .resumo {
+}
+
+.resumo {
     border-top: 2px solid #dce6f0;
     padding-top: 15px;
     margin-top: 20px;
-  }
-  
-  @media (max-width: 700px) {
+}
+
+@media (max-width: 700px) {
     .secao {
-      padding: 25px 5%;
+        padding: 25px 5%;
     }
-  
+
+    .filtro {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filtro select {
+        width: 100%;
+    }
+
     table {
-      min-width: 650px;
+        min-width: 650px;
     }
-  
+
     .detalhes {
-      padding: 20px;
+        padding: 20px;
     }
-  }
-  
+}

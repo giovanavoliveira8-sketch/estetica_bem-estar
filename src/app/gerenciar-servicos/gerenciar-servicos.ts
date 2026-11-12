@@ -182,6 +182,11 @@ export class GerenciarServicos implements OnInit {
     };
 
     this.mensagem = '';
+
+    document.getElementById('formulario')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
   }
 
   editarServico(): void {

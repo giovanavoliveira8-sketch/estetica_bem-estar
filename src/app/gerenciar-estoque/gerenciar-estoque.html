@@ -1,0 +1,51 @@
+
+<div class="pagina-estoque">
+
+  <div class="cabecalho">
+    <h1>Gerenciamento de Estoque</h1>
+    <p>Consulte os produtos e suas quantidades disponíveis.</p>
+  </div>
+
+  <div class="mensagem" *ngIf="mensagem">
+    {{ mensagem }}
+  </div>
+
+  <div class="carregando" *ngIf="carregando">
+    Carregando estoque...
+  </div>
+
+  <div class="tabela-container" *ngIf="!carregando">
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID do Estoque</th>
+          <th>ID do Produto</th>
+          <th>Produto</th>
+          <th>Quantidade Disponível</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let estoque of estoques">
+          <td>{{ estoque.idestoque }}</td>
+          <td>{{ estoque.iditem }}</td>
+          <td>{{ obterNomeProduto(estoque.iditem) }}</td>
+          <td>{{ estoque.quantidadeEstoque }}</td>
+        </tr>
+
+        <tr *ngIf="estoques.length === 0">
+          <td colspan="4">
+            Nenhum produto encontrado no estoque.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <button class="botao-atualizar" (click)="listarEstoque()">
+    Atualizar Estoque
+  </button>
+
+</div>

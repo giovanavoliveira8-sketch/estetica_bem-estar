@@ -1,211 +1,210 @@
 
 <section class="gerenciar-servicos">
 
-    <h2>Gerenciamento de Serviços</h2>
-    <p>Cadastre, consulte, edite e desative os serviços.</p>
-  
-    <p class="mensagem" *ngIf="mensagem">{{ mensagem }}</p>
-  
-    <div class="formulario">
-  
-      <h3>{{ editando ? 'Editar Serviço' : 'Cadastrar Serviço' }}</h3>
-  
-      <div class="campo">
-        <label>Nome do serviço:</label>
-        <input
-          type="text"
-          [(ngModel)]="servicoForm.item1"
-          placeholder="Digite o nome do serviço">
-      </div>
-  
-      <div class="campo">
-        <label>Descrição:</label>
-        <textarea
-          rows="1"
-          [(ngModel)]="servicoForm.descricaoItem"
-          placeholder="Digite a descrição do serviço">
-        </textarea>
-      </div>
-  
-      <div class="campo">
-        <label>Categoria:</label>
-        <select [(ngModel)]="servicoForm.idcategoria">
-          <option [ngValue]="0">Selecione uma categoria</option>
-  
-          <option
-            *ngFor="let categoria of categorias"
-            [ngValue]="categoria.idcategoria">
-            {{ categoria.categoria }}
-          </option>
-        </select>
-      </div>
-  
-      <div class="campo">
-        <label>Preço:</label>
-        <input
-          type="number"
-          [(ngModel)]="servicoForm.preco"
-          min="0"
-          step="0.01"
-          placeholder="Digite o preço">
-      </div>
-  
-      <div class="botoes">
-  
-        <button
-          *ngIf="!editando"
-          (click)="cadastrarServico()">
-          Cadastrar Serviço
-        </button>
-  
-        <button
-          *ngIf="editando"
-          (click)="editarServico()">
-          Salvar Alterações
-        </button>
-  
-        <button
-          type="button"
-          class="botao-secundario"
-          (click)="novoServico()">
-          Limpar Formulário
-        </button>
-  
-      </div>
-  
+  <h2>Gerenciamento de Serviços</h2>
+  <p>Cadastre, consulte, edite e desative os serviços.</p>
+
+  <p class="mensagem" *ngIf="mensagem">{{ mensagem }}</p>
+
+  <div class="formulario" id="formulario">
+
+    <h3>{{ editando ? 'Editar Serviço' : 'Cadastrar Serviço' }}</h3>
+
+    <div class="campo">
+      <label>Nome do serviço:</label>
+      <input
+        type="text"
+        [(ngModel)]="servicoForm.item1"
+        placeholder="Digite o nome do serviço">
     </div>
-  
-    <div class="consulta">
-  
-      <h3>Consultar Serviço por ID</h3>
-  
+
+    <div class="campo">
+      <label>Descrição:</label>
+      <textarea
+        rows="1"
+        [(ngModel)]="servicoForm.descricaoItem"
+        placeholder="Digite a descrição do serviço">
+      </textarea>
+    </div>
+
+    <div class="campo">
+      <label>Categoria:</label>
+      <select [(ngModel)]="servicoForm.idcategoria">
+        <option [ngValue]="0">Selecione uma categoria</option>
+
+        <option
+          *ngFor="let categoria of categorias"
+          [ngValue]="categoria.idcategoria">
+          {{ categoria.categoria }}
+        </option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label>Preço:</label>
       <input
         type="number"
-        [(ngModel)]="idBusca"
-        placeholder="Digite o ID do serviço">
-  
-      <button (click)="consultarServico()">Consultar</button>
-  
+        [(ngModel)]="servicoForm.preco"
+        min="0"
+        step="0.01"
+        placeholder="Digite o preço">
+    </div>
+
+    <div class="botoes">
+
       <button
-        class="botao-secundario"
-        (click)="limparConsulta()">
-        Limpar Consulta
+        *ngIf="!editando"
+        (click)="cadastrarServico()">
+        Cadastrar Serviço
       </button>
-  
-      <div class="detalhes" *ngIf="servicoSelecionado">
-  
-        <h4>Serviço encontrado</h4>
-  
-        <p><strong>ID:</strong> {{ servicoSelecionado.iditem }}</p>
-        <p><strong>Nome:</strong> {{ servicoSelecionado.item1 }}</p>
-        <p><strong>Descrição:</strong> {{ servicoSelecionado.descricaoItem }}</p>
-  
-        <p>
-          <strong>Categoria:</strong>
-          {{ servicoSelecionado.idcategoriaNavigation?.categoria }}
-        </p>
-  
-        <p>
-          <strong>Preço:</strong>
-          {{ servicoSelecionado.preco | currency:'BRL' }}
-        </p>
-  
-        <p>
-          <strong>Status:</strong>
-          {{ servicoSelecionado.ativoProdutoServico === 'S' ? 'Ativo' : 'Inativo' }}
-        </p>
-  
-        <button
-          *ngIf="servicoSelecionado.ativoProdutoServico === 'S'"
-          (click)="selecionarEdicao(servicoSelecionado)">
-          Editar
-        </button>
-  
-        <button
-          *ngIf="servicoSelecionado.ativoProdutoServico === 'S'"
-          (click)="desativarServico(servicoSelecionado)">
-          Desativar
-        </button>
-  
-        <button
-          *ngIf="servicoSelecionado.ativoProdutoServico === 'N'"
-          (click)="reativarServico(servicoSelecionado)">
-          Reativar
-        </button>
-  
-      </div>
-  
+
+      <button
+        *ngIf="editando"
+        (click)="editarServico()">
+        Salvar Alterações
+      </button>
+
+      <button
+        type="button"
+        class="botao-secundario"
+        (click)="novoServico()">
+        Limpar Formulário
+      </button>
+
     </div>
-  
-    <div class="lista-servicos">
-  
-      <h3>Serviços Cadastrados</h3>
-  
-      <p *ngIf="carregando">Carregando serviços...</p>
-  
-      <table *ngIf="!carregando && servicos.length > 0">
-  
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Serviço</th>
-            <th>Categoria</th>
-            <th>Preço</th>
-            <th>Status</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-  
-        <tbody>
-  
-          <tr *ngFor="let servico of servicos">
-  
-            <td>{{ servico.iditem }}</td>
-            <td>{{ servico.item1 }}</td>
-            <td>{{ servico.idcategoriaNavigation?.categoria }}</td>
-            <td>{{ servico.preco | currency:'BRL' }}</td>
-  
-            <td>
-              {{ servico.ativoProdutoServico === 'S' ? 'Ativo' : 'Inativo' }}
-            </td>
-  
-            <td>
-  
-              <button (click)="consultarServicoPelaLista(servico.iditem)">
-                Consultar
-              </button>
-  
-              <button
-                *ngIf="servico.ativoProdutoServico === 'S'"
-                (click)="selecionarEdicao(servico)">
-                Editar
-              </button>
-  
-              <button
-                *ngIf="servico.ativoProdutoServico === 'S'"
-                (click)="desativarServico(servico)">
-                Desativar
-              </button>
-  
-              <button
-                *ngIf="servico.ativoProdutoServico === 'N'"
-                (click)="reativarServico(servico)">
-                Reativar
-              </button>
-  
-            </td>
-  
-          </tr>
-  
-        </tbody>
-  
-      </table>
-  
-      <p *ngIf="!carregando && servicos.length === 0">
-        Nenhum serviço cadastrado.
+
+  </div>
+
+  <div class="consulta">
+
+    <h3>Consultar Serviço por ID</h3>
+
+    <input
+      type="number"
+      [(ngModel)]="idBusca"
+      placeholder="Digite o ID do serviço">
+
+    <button (click)="consultarServico()">Consultar</button>
+
+    <button
+      class="botao-secundario"
+      (click)="limparConsulta()">
+      Limpar Consulta
+    </button>
+
+    <div class="detalhes" *ngIf="servicoSelecionado">
+
+      <h4>Serviço encontrado</h4>
+
+      <p><strong>ID:</strong> {{ servicoSelecionado.iditem }}</p>
+      <p><strong>Nome:</strong> {{ servicoSelecionado.item1 }}</p>
+      <p><strong>Descrição:</strong> {{ servicoSelecionado.descricaoItem }}</p>
+
+      <p>
+        <strong>Categoria:</strong>
+        {{ servicoSelecionado.idcategoriaNavigation?.categoria }}
       </p>
-  
+
+      <p>
+        <strong>Preço:</strong>
+        {{ servicoSelecionado.preco | currency:'BRL' }}
+      </p>
+
+      <p>
+        <strong>Status:</strong>
+        {{ servicoSelecionado.ativoProdutoServico === 'S' ? 'Ativo' : 'Inativo' }}
+      </p>
+
+      <button
+        *ngIf="servicoSelecionado.ativoProdutoServico === 'S'"
+        (click)="selecionarEdicao(servicoSelecionado)">
+        Editar
+      </button>
+
+      <button
+        *ngIf="servicoSelecionado.ativoProdutoServico === 'S'"
+        (click)="desativarServico(servicoSelecionado)">
+        Desativar
+      </button>
+
+      <button
+        *ngIf="servicoSelecionado.ativoProdutoServico === 'N'"
+        (click)="reativarServico(servicoSelecionado)">
+        Reativar
+      </button>
+
     </div>
-  
-  </section>
-  
+
+  </div>
+
+  <div class="lista-servicos">
+
+    <h3>Serviços Cadastrados</h3>
+
+    <p *ngIf="carregando">Carregando serviços...</p>
+
+    <table *ngIf="!carregando && servicos.length > 0">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Serviço</th>
+          <th>Categoria</th>
+          <th>Preço</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let servico of servicos">
+
+          <td>{{ servico.iditem }}</td>
+          <td>{{ servico.item1 }}</td>
+          <td>{{ servico.idcategoriaNavigation?.categoria }}</td>
+          <td>{{ servico.preco | currency:'BRL' }}</td>
+
+          <td>
+            {{ servico.ativoProdutoServico === 'S' ? 'Ativo' : 'Inativo' }}
+          </td>
+
+          <td>
+
+            <button (click)="consultarServicoPelaLista(servico.iditem)">
+              Consultar
+            </button>
+
+            <button
+              *ngIf="servico.ativoProdutoServico === 'S'"
+              (click)="selecionarEdicao(servico)">
+              Editar
+            </button>
+
+            <button
+              *ngIf="servico.ativoProdutoServico === 'S'"
+              (click)="desativarServico(servico)">
+              Desativar
+            </button>
+
+            <button
+              *ngIf="servico.ativoProdutoServico === 'N'"
+              (click)="reativarServico(servico)">
+              Reativar
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+    <p *ngIf="!carregando && servicos.length === 0">
+      Nenhum serviço cadastrado.
+    </p>
+
+  </div>
+
+</section>

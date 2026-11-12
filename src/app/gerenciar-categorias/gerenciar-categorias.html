@@ -1,134 +1,133 @@
 
 <section class="gerenciar-servicos">
 
-    <h2>Gerenciamento de Categorias</h2>
-    <p>Cadastre, consulte, edite e exclua as categorias.</p>
-  
-    <p class="mensagem" *ngIf="mensagem">{{ mensagem }}</p>
-  
-    <div class="formulario">
-  
-      <h3>{{ editando ? 'Editar Categoria' : 'Cadastrar Categoria' }}</h3>
-  
-      <div class="campo">
-        <label>Nome da categoria:</label>
-        <input
-          type="text"
-          [(ngModel)]="categoriaForm.categoria"
-          placeholder="Digite o nome da categoria">
-      </div>
-  
-      <div class="botoes">
-  
-        <button
-          *ngIf="!editando"
-          (click)="cadastrarCategoria()">
-          Cadastrar Categoria
-        </button>
-  
-        <button
-          *ngIf="editando"
-          (click)="editarCategoria()">
-          Salvar Alterações
-        </button>
-  
-        <button
-          type="button"
-          class="botao-secundario"
-          (click)="novaCategoria()">
-          Limpar Formulário
-        </button>
-  
-      </div>
-  
-    </div>
-  
-    <div class="consulta">
-  
-      <h3>Consultar Categoria por ID</h3>
-  
+  <h2>Gerenciamento de Categorias</h2>
+  <p>Cadastre, consulte, edite e exclua as categorias.</p>
+
+  <div class="formulario" id="formulario">
+
+    <h3>{{ editando ? 'Editar Categoria' : 'Cadastrar Categoria' }}</h3>
+
+    <div class="campo">
+      <label>Nome da categoria:</label>
       <input
-        type="number"
-        [(ngModel)]="idBusca"
-        placeholder="Digite o ID da categoria">
-  
-      <button (click)="consultarCategoria()">Consultar</button>
-  
+        type="text"
+        [(ngModel)]="categoriaForm.categoria"
+        placeholder="Digite o nome da categoria">
+    </div>
+
+    <div class="botoes">
+
       <button
-        class="botao-secundario"
-        (click)="limparConsulta()">
-        Limpar Consulta
+        *ngIf="!editando"
+        (click)="cadastrarCategoria()">
+        Cadastrar Categoria
       </button>
-  
-      <div class="detalhes" *ngIf="categoriaSelecionada">
-  
-        <h4>Categoria encontrada</h4>
-  
-        <p><strong>ID:</strong> {{ categoriaSelecionada.idcategoria }}</p>
-        <p><strong>Nome:</strong> {{ categoriaSelecionada.categoria }}</p>
-  
-        <button (click)="selecionarEdicao(categoriaSelecionada)">
-          Editar
-        </button>
-  
-        <button (click)="excluirCategoria(categoriaSelecionada)">
-          Excluir
-        </button>
-  
-      </div>
-  
+
+      <button
+        *ngIf="editando"
+        (click)="editarCategoria()">
+        Salvar Alterações
+      </button>
+
+      <button
+        type="button"
+        class="botao-secundario"
+        (click)="novaCategoria()">
+        Limpar Formulário
+      </button>
+
     </div>
-  
-    <div class="lista-servicos">
-  
-      <h3>Categorias Cadastradas</h3>
-  
-      <p *ngIf="carregando">Carregando categorias...</p>
-  
-      <table *ngIf="!carregando && categorias.length > 0">
-  
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Categoria</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-  
-        <tbody>
-  
-          <tr *ngFor="let categoria of categorias">
-  
-            <td>{{ categoria.idcategoria }}</td>
-            <td>{{ categoria.categoria }}</td>
-  
-            <td>
-  
-              <button (click)="consultarCategoriaPelaLista(categoria.idcategoria)">
-                Consultar
-              </button>
-  
-              <button (click)="selecionarEdicao(categoria)">
-                Editar
-              </button>
-  
-              <button (click)="excluirCategoria(categoria)">
-                Excluir
-              </button>
-  
-            </td>
-  
-          </tr>
-  
-        </tbody>
-  
-      </table>
-  
-      <p *ngIf="!carregando && categorias.length === 0">
-        Nenhuma categoria cadastrada.
-      </p>
-  
+
+  </div>
+
+  <div class="consulta">
+
+    <h3>Consultar Categoria por ID</h3>
+
+    <input
+      type="number"
+      [(ngModel)]="idBusca"
+      placeholder="Digite o ID da categoria">
+
+    <button (click)="consultarCategoria()">Consultar</button>
+
+    <button
+      class="botao-secundario"
+      (click)="limparConsulta()">
+      Limpar Consulta
+    </button>
+
+    <div class="detalhes" *ngIf="categoriaSelecionada">
+
+      <h4>Categoria encontrada</h4>
+
+      <p><strong>ID:</strong> {{ categoriaSelecionada.idcategoria }}</p>
+      <p><strong>Nome:</strong> {{ categoriaSelecionada.categoria }}</p>
+
+      <button (click)="selecionarEdicao(categoriaSelecionada)">
+        Editar
+      </button>
+
+      <button (click)="excluirCategoria(categoriaSelecionada)">
+        Excluir
+      </button>
+
     </div>
-  
-  </section>
-  
+
+  </div>
+
+  <div class="lista-servicos">
+
+    <h3>Categorias Cadastradas</h3>
+
+    <p *ngIf="carregando">Carregando categorias...</p>
+
+    <table *ngIf="!carregando && categorias.length > 0">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Categoria</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let categoria of categorias">
+
+          <td>{{ categoria.idcategoria }}</td>
+          <td>{{ categoria.categoria }}</td>
+
+          <td>
+
+            <button (click)="consultarCategoriaPelaLista(categoria.idcategoria)">
+              Consultar
+            </button>
+
+            <button (click)="selecionarEdicao(categoria)">
+              Editar
+            </button>
+
+            <button (click)="excluirCategoria(categoria)">
+              Excluir
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+    <p *ngIf="!carregando && categorias.length === 0">
+      Nenhuma categoria cadastrada.
+    </p>
+
+  </div>
+
+  <p class="mensagem" *ngIf="mensagem">{{ mensagem }}</p>
+
+</section>

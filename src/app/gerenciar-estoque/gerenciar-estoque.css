@@ -1,0 +1,78 @@
+
+.pagina-estoque {
+  padding: 30px;
+  min-height: 80vh;
+  background-color: #eaf2fb;
+}
+
+.cabecalho {
+  margin-bottom: 30px;
+}
+
+.cabecalho h1 {
+  color: #163b65;
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.cabecalho p {
+  color: #555;
+  font-size: 15px;
+}
+
+.mensagem {
+  background-color: #f8d7da;
+  color: #842029;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.carregando {
+  color: #163b65;
+  font-size: 16px;
+  padding: 20px;
+}
+
+.tabela-container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #163b65;
+  color: white;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  background-color: #f1f6fc;
+}
+
+.botao-atualizar {
+  margin-top: 20px;
+  padding: 12px 22px;
+  background-color: #2466a3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.botao-atualizar:hover {
+  background-color: #163b65;
+}

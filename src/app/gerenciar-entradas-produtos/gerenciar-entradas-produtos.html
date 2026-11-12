@@ -1,0 +1,149 @@
+
+<section class="gerenciar-entradas">
+
+  <h2>Entradas de Produtos</h2>
+
+  <p>Cadastre e consulte as entradas de produtos no estoque.</p>
+
+  <p class="mensagem" *ngIf="mensagem">
+    {{ mensagem }}
+  </p>
+
+  <div class="formulario">
+
+    <h3>Cadastrar Entrada de Produto</h3>
+
+    <div class="campo">
+      <label>ID da entrada:</label>
+      <input
+        type="number"
+        [(ngModel)]="entradaForm.identradaProduto"
+        min="1"
+        placeholder="Digite o ID da entrada">
+    </div>
+
+    <div class="campo">
+      <label>Produto:</label>
+
+      <select [(ngModel)]="entradaForm.iditem">
+        <option [ngValue]="0">Selecione um produto</option>
+
+        <option
+          *ngFor="let produto of produtos"
+          [ngValue]="produto.iditem">
+          {{ produto.iditem }} - {{ produto.iditemNavigation.item1 }}
+        </option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label>Data da entrada:</label>
+      <input
+        type="date"
+        [(ngModel)]="entradaForm.dataEntradaProduto">
+    </div>
+
+    <div class="campo">
+      <label>Quantidade:</label>
+      <input
+        type="number"
+        [(ngModel)]="entradaForm.quantidadeEntrada"
+        min="1"
+        step="1"
+        placeholder="Digite a quantidade">
+    </div>
+
+    <div class="campo">
+      <label>Unidade:</label>
+      <input
+        type="text"
+        [(ngModel)]="entradaForm.unidade"
+        placeholder="Exemplo: UN">
+    </div>
+
+    <div class="campo">
+      <label>Valor unitário:</label>
+      <input
+        type="number"
+        [(ngModel)]="entradaForm.valorUnitarioEntrada"
+        min="0.01"
+        step="0.01"
+        placeholder="Digite o valor unitário">
+    </div>
+
+    <div class="botoes">
+
+      <button
+        (click)="cadastrarEntrada()"
+        [disabled]="cadastrando">
+        {{ cadastrando ? 'Cadastrando...' : 'Cadastrar Entrada' }}
+      </button>
+
+      <button
+        type="button"
+        class="botao-secundario"
+        (click)="novaEntrada()">
+        Limpar Formulário
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="lista-entradas">
+
+    <h3>Entradas Cadastradas</h3>
+
+    <p *ngIf="carregando">
+      Carregando entradas...
+    </p>
+
+    <table *ngIf="!carregando && entradas.length > 0">
+
+      <thead>
+        <tr>
+          <th>ID da entrada</th>
+          <th>ID do produto</th>
+          <th>Produto</th>
+          <th>Data</th>
+          <th>Quantidade</th>
+          <th>Unidade</th>
+          <th>Valor unitário</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let entrada of entradas">
+
+          <td>{{ entrada.identradaProduto }}</td>
+
+          <td>{{ entrada.iditem }}</td>
+
+          <td>{{ obterNomeProduto(entrada.iditem) }}</td>
+
+          <td>
+            {{ entrada.dataEntradaProduto | date:'dd/MM/yyyy' }}
+          </td>
+
+          <td>{{ entrada.quantidadeEntrada }}</td>
+
+          <td>{{ entrada.unidade }}</td>
+
+          <td>
+            {{ entrada.valorUnitarioEntrada | currency:'BRL' }}
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+    <p *ngIf="!carregando && entradas.length === 0">
+      Nenhuma entrada cadastrada.
+    </p>
+
+  </div>
+
+</section>

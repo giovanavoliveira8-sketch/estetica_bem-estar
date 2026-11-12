@@ -143,6 +143,11 @@ export class GerenciarCategorias implements OnInit {
     };
 
     this.mensagem = '';
+
+    document.getElementById('formulario')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
   }
 
   editarCategoria(): void {

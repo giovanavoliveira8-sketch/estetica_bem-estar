@@ -1,0 +1,139 @@
+
+.gerenciar-entradas {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+  box-sizing: border-box;
+  color: #163b65;
+}
+
+.gerenciar-entradas h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.gerenciar-entradas > p {
+  color: #526b89;
+}
+
+.gerenciar-entradas h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 21px;
+}
+
+.formulario,
+.lista-entradas {
+  background: #ffffff;
+  padding: 25px;
+  margin-top: 25px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(22, 59, 101, 0.10);
+}
+
+.formulario {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 25px;
+}
+
+.formulario h3,
+.botoes {
+  grid-column: 1 / -1;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.gerenciar-entradas label {
+  font-weight: bold;
+}
+
+.gerenciar-entradas input,
+.gerenciar-entradas select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #cbd8e6;
+  border-radius: 7px;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #163b65;
+  background: #ffffff;
+}
+
+.gerenciar-entradas button {
+  background: #2466a3;
+  color: white;
+  border: none;
+  padding: 11px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin: 4px;
+}
+
+.gerenciar-entradas button:hover {
+  background: #163b65;
+}
+
+.gerenciar-entradas button:disabled {
+  background: #71869b;
+  cursor: not-allowed;
+}
+
+.gerenciar-entradas .botao-secundario {
+  background: #71869b;
+}
+
+.botoes {
+  margin-top: 5px;
+}
+
+.lista-entradas {
+  overflow-x: auto;
+}
+
+.lista-entradas table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  min-width: 750px;
+}
+
+.lista-entradas th {
+  background: #eaf2fb;
+  padding: 13px 10px;
+  text-align: left;
+}
+
+.lista-entradas td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #e1e8f0;
+}
+
+.lista-entradas tr:hover {
+  background: #f5f9fd;
+}
+
+.mensagem {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+@media (max-width: 700px) {
+  .gerenciar-entradas {
+    padding: 15px;
+  }
+
+  .formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .formulario h3,
+  .botoes {
+    grid-column: 1;
+  }
+}
