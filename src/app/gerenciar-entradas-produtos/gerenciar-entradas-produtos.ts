@@ -20,7 +20,6 @@ export class GerenciarEntradasProdutos implements OnInit {
   cadastrando = false;
 
   entradaForm = {
-    identradaProduto: 0,
     iditem: 0,
     dataEntradaProduto: '',
     quantidadeEntrada: 0,
@@ -84,7 +83,6 @@ export class GerenciarEntradasProdutos implements OnInit {
   cadastrarEntrada(): void {
 
     if (
-      this.entradaForm.identradaProduto <= 0 ||
       this.entradaForm.iditem <= 0 ||
       this.entradaForm.dataEntradaProduto === '' ||
       this.entradaForm.quantidadeEntrada <= 0 ||
@@ -102,15 +100,17 @@ export class GerenciarEntradasProdutos implements OnInit {
     this.http.post(this.url, this.entradaForm).subscribe({
       next: () => {
         this.mensagem = 'Entrada de produto cadastrada com sucesso! O estoque foi atualizado.';
+
         this.novaEntrada();
         this.listarEntradas();
+
         this.cadastrando = false;
         this.cdr.detectChanges();
       },
       error: (erro) => {
         console.log('Erro ao cadastrar entrada:', erro);
 
-        this.mensagem = 'Não foi possível cadastrar a entrada. Verifique se o ID informado já está cadastrado para esse produto.';
+        this.mensagem = 'Não foi possível cadastrar a entrada. Verifique os dados e o estoque do produto.';
 
         this.cadastrando = false;
         this.cdr.detectChanges();
@@ -120,7 +120,6 @@ export class GerenciarEntradasProdutos implements OnInit {
 
   novaEntrada(): void {
     this.entradaForm = {
-      identradaProduto: 0,
       iditem: 0,
       dataEntradaProduto: '',
       quantidadeEntrada: 0,

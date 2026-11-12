@@ -2,10 +2,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   selector: 'app-pedidos',
   styleUrl: './pedidos.css',
   templateUrl: './pedidos.html',
@@ -19,9 +18,8 @@ export class Pedidos implements OnInit {
   carregando = true;
 
   statusFiltro = '';
-  novoStatus = '';
 
-  private url = 'https://localhost:7218/api/Atendimento';
+  private url = 'https://localhost:7218/api/Pedido';
 
   constructor(
     private http: HttpClient,
@@ -37,13 +35,7 @@ export class Pedidos implements OnInit {
     this.carregando = true;
     this.mensagem = '';
 
-    let endereco = this.url;
-
-    if (this.statusFiltro != '') {
-      endereco = this.url + '?status=' + this.statusFiltro;
-    }
-
-    this.http.get<any[]>(endereco).subscribe({
+    this.http.get<any[]>(this.url).subscribe({
       next: (dados) => {
 
         this.pedidos = dados;
@@ -63,12 +55,21 @@ export class Pedidos implements OnInit {
     });
   }
 
+  get pedidosFiltrados(): any[] {
+
+    if (this.statusFiltro == '') {
+      return this.pedidos;
+    }
+
+    return this.pedidos.filter(p =>
+      p.statusPedido == this.statusFiltro
+    );
+  }
+
   filtrarPedidos(status: string): void {
 
     this.statusFiltro = status;
     this.pedidoSelecionado = null;
-
-    this.listarPedidos();
   }
 
   verDetalhes(id: number): void {
@@ -79,7 +80,6 @@ export class Pedidos implements OnInit {
       next: (dados) => {
 
         this.pedidoSelecionado = dados;
-        this.novoStatus = dados.statusAtendimento;
 
         this.cdr.detectChanges();
       },
@@ -94,62 +94,9 @@ export class Pedidos implements OnInit {
     });
   }
 
-  atualizarStatus(): void {
-
-    if (this.novoStatus == '') {
-      this.mensagem = 'Selecione uma situação.';
-      return;
-    }
-
-    let endereco = this.url + '/' + this.pedidoSelecionado.idatendimento + '/status?status=' + encodeURIComponent(this.novoStatus);
-
-    this.http.put(endereco, null, { responseType: 'text' }).subscribe({
-      next: (resposta) => {
-
-        this.mensagem = 'Situação do pedido atualizada com sucesso!';
-
-        this.verDetalhes(this.pedidoSelecionado.idatendimento);
-
-        this.cdr.detectChanges();
-      },
-      error: (erro) => {
-
-        console.log('Erro ao atualizar situação:', erro);
-
-        if (erro.status == 400) {
-          this.mensagem = 'Essa mudança de situação não é permitida.';
-        } else if (erro.status == 404) {
-          this.mensagem = 'Pedido não encontrado.';
-        } else {
-          this.mensagem = 'Não foi possível atualizar a situação do pedido.';
-        }
-
-        this.cdr.detectChanges();
-      }
-    });
-  }
-
   calcularTotalItem(item: any): number {
 
-    return item.quantidadeItens * item.valorunitarioEntrada;
-
-  }
-
-  calcularTotalPedido(): number {
-
-    let total = 0;
-
-    if (this.pedidoSelecionado && this.pedidoSelecionado.itens) {
-
-      for (let item of this.pedidoSelecionado.itens) {
-
-        total = total + this.calcularTotalItem(item);
-
-      }
-
-    }
-
-    return total;
+    return item.quantidade * item.valorUnitario;
   }
 
   voltarLista(): void {
@@ -159,5 +106,4 @@ export class Pedidos implements OnInit {
 
     this.listarPedidos();
   }
-
 }

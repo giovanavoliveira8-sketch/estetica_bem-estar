@@ -14,15 +14,6 @@
     <h3>Cadastrar Entrada de Produto</h3>
 
     <div class="campo">
-      <label>ID da entrada:</label>
-      <input
-        type="number"
-        [(ngModel)]="entradaForm.identradaProduto"
-        min="1"
-        placeholder="Digite o ID da entrada">
-    </div>
-
-    <div class="campo">
       <label>Produto:</label>
 
       <select [(ngModel)]="entradaForm.iditem">
@@ -113,29 +104,15 @@
       </thead>
 
       <tbody>
-
         <tr *ngFor="let entrada of entradas">
-
           <td>{{ entrada.identradaProduto }}</td>
-
           <td>{{ entrada.iditem }}</td>
-
           <td>{{ obterNomeProduto(entrada.iditem) }}</td>
-
-          <td>
-            {{ entrada.dataEntradaProduto | date:'dd/MM/yyyy' }}
-          </td>
-
+          <td>{{ entrada.dataEntradaProduto | date:'dd/MM/yyyy' }}</td>
           <td>{{ entrada.quantidadeEntrada }}</td>
-
           <td>{{ entrada.unidade }}</td>
-
-          <td>
-            {{ entrada.valorUnitarioEntrada | currency:'BRL' }}
-          </td>
-
+          <td>{{ entrada.valorUnitarioEntrada | currency:'BRL' }}</td>
         </tr>
-
       </tbody>
 
     </table>

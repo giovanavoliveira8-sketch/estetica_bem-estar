@@ -4,7 +4,7 @@
   <h2>Pedidos realizados</h2>
 
   <p class="subtitulo">
-    Consulte os pedidos registrados e confira os detalhes de cada pedido.
+    Consulte os pedidos registrados e confira os detalhes de cada compra.
   </p>
 
   <p *ngIf="carregando">
@@ -31,50 +31,53 @@
         (change)="filtrarPedidos(filtro.value)">
 
         <option value="">Todos os pedidos</option>
-        <option value="Aberto">Pedidos em aberto</option>
+        <option value="Pendente">Pendentes</option>
+        <option value="Em processamento">Em processamento</option>
+        <option value="Concluído">Concluídos</option>
+        <option value="Cancelado">Cancelados</option>
 
       </select>
 
     </div>
 
-    <div class="vazio" *ngIf="pedidos.length === 0">
+    <div class="vazio" *ngIf="pedidosFiltrados.length === 0">
       <h3>Nenhum pedido encontrado.</h3>
     </div>
 
-    <div class="tabela" *ngIf="pedidos.length > 0">
+    <div class="tabela" *ngIf="pedidosFiltrados.length > 0">
 
       <table>
 
         <thead>
           <tr>
             <th>Pedido</th>
-            <th>ID do cliente</th>
+            <th>Cliente</th>
             <th>Data</th>
+            <th>Pagamento</th>
             <th>Status</th>
+            <th>Total</th>
             <th>Detalhes</th>
           </tr>
         </thead>
 
         <tbody>
 
-          <tr *ngFor="let pedido of pedidos">
+          <tr *ngFor="let pedido of pedidosFiltrados">
 
-            <td>#{{ pedido.idatendimento }}</td>
+            <td>#{{ pedido.idpedido }}</td>
 
-            <td>{{ pedido.idpessoa }}</td>
+            <td>{{ pedido.nomeCliente }}</td>
 
-            <td>{{ pedido.dataAtendimento | date:'dd/MM/yyyy' }}</td>
+            <td>{{ pedido.dataPedido | date:'dd/MM/yyyy HH:mm' }}</td>
 
-            <td>
-              {{ pedido.statusAtendimento === 'A' ? 'Aberto' :
-                 pedido.statusAtendimento === 'P' ? 'Em processamento' :
-                 pedido.statusAtendimento === 'C' ? 'Concluído' :
-                 pedido.statusAtendimento === 'X' ? 'Cancelado' :
-                 pedido.statusAtendimento }}
-            </td>
+            <td>{{ pedido.formaPagamento }}</td>
+
+            <td>{{ pedido.statusPedido }}</td>
+
+            <td>{{ pedido.total | currency:'BRL' }}</td>
 
             <td>
-              <button (click)="verDetalhes(pedido.idatendimento)">
+              <button (click)="verDetalhes(pedido.idpedido)">
                 Ver detalhes
               </button>
             </td>
@@ -92,7 +95,12 @@
   <!-- DETALHES DO PEDIDO -->
   <div class="detalhes" *ngIf="pedidoSelecionado">
 
-    <h3>Pedido #{{ pedidoSelecionado.idatendimento }}</h3>
+    <h3>Pedido #{{ pedidoSelecionado.idpedido }}</h3>
+
+    <p>
+      <strong>Cliente:</strong>
+      {{ pedidoSelecionado.nomeCliente }}
+    </p>
 
     <p>
       <strong>ID do cliente:</strong>
@@ -101,44 +109,18 @@
 
     <p>
       <strong>Data:</strong>
-      {{ pedidoSelecionado.dataAtendimento | date:'dd/MM/yyyy' }}
+      {{ pedidoSelecionado.dataPedido | date:'dd/MM/yyyy HH:mm' }}
+    </p>
+
+    <p>
+      <strong>Forma de pagamento:</strong>
+      {{ pedidoSelecionado.formaPagamento }}
     </p>
 
     <p>
       <strong>Status:</strong>
-      {{ pedidoSelecionado.statusAtendimento === 'A' ? 'Aberto' :
-         pedidoSelecionado.statusAtendimento === 'P' ? 'Em processamento' :
-         pedidoSelecionado.statusAtendimento === 'C' ? 'Concluído' :
-         pedidoSelecionado.statusAtendimento === 'X' ? 'Cancelado' :
-         pedidoSelecionado.statusAtendimento }}
+      {{ pedidoSelecionado.statusPedido }}
     </p>
-
-    <!-- ATUALIZAR SITUAÇÃO -->
-    <div class="atualizar-status">
-
-      <h3>Atualizar situação do pedido</h3>
-
-      <label for="novoStatus">
-        Nova situação:
-      </label>
-
-      <select
-        id="novoStatus"
-        [(ngModel)]="novoStatus">
-
-        <option value="Aberto">Aberto</option>
-        <option value="Em processamento">Em processamento</option>
-        <option value="Concluído">Concluído</option>
-        <option value="Cancelado">Cancelado</option>
-
-      </select>
-
-      <button
-        (click)="atualizarStatus()">
-        Atualizar situação
-      </button>
-
-    </div>
 
     <h3>Itens do pedido</h3>
 
@@ -151,23 +133,18 @@
       </p>
 
       <p>
-        <strong>Descrição:</strong>
-        {{ item.descricaoItem }}
-      </p>
-
-      <p>
         <strong>Tipo:</strong>
         {{ item.tipoItem === 'P' ? 'Produto' : 'Serviço' }}
       </p>
 
       <p>
         <strong>Quantidade:</strong>
-        {{ item.quantidadeItens }}
+        {{ item.quantidade }}
       </p>
 
       <p>
         <strong>Valor unitário:</strong>
-        {{ item.valorunitarioEntrada | currency:'BRL' }}
+        {{ item.valorUnitario | currency:'BRL' }}
       </p>
 
       <p>
@@ -175,22 +152,23 @@
         {{ calcularTotalItem(item) | currency:'BRL' }}
       </p>
 
-      <p>
-        <strong>Funcionário responsável:</strong>
-        {{ item.idfuncionario }}
-      </p>
-
-    </div>
-
-    <div class="vazio" *ngIf="pedidoSelecionado.itens.length === 0">
-      Nenhum item registrado neste pedido.
     </div>
 
     <div class="resumo">
 
+      <p>
+        <strong>Subtotal:</strong>
+        {{ pedidoSelecionado.subtotal | currency:'BRL' }}
+      </p>
+
+      <p>
+        <strong>Frete:</strong>
+        {{ pedidoSelecionado.frete | currency:'BRL' }}
+      </p>
+
       <h3>
         Total do pedido:
-        {{ calcularTotalPedido() | currency:'BRL' }}
+        {{ pedidoSelecionado.total | currency:'BRL' }}
       </h3>
 
     </div>
